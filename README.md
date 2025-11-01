@@ -41,6 +41,7 @@ Official Adobe Flash and ActionScript specifications (see [specs/README.md](spec
 
 - **[swf-spec-19.txt](specs/swf-spec-19.txt)** - SWF File Format Specification (Version 19)
 - **[abc-format-46-16.txt](specs/abc-format-46-16.txt)** - ActionScript Bytecode (ABC) format specification
+- **[avm2overview.txt](specs/avm2overview.txt)** - ActionScript Virtual Machine 2 (AVM2) Overview
 - **[avm2_opcodes_raw.txt](specs/avm2_opcodes_raw.txt)** - Raw AVM2 opcode reference
 - **[opcodes.as](specs/opcodes.as)** - ActionScript opcode definitions
 - **[pdf/](specs/pdf/)** - PDF versions of official specifications
