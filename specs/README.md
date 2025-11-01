@@ -29,6 +29,19 @@ This directory contains official Adobe Flash SWF and ActionScript specifications
   - Source: https://github.com/adobe-flash/avmplus/blob/master/doc/abcFormat-46-16.txt
   - From Adobe's official avmplus repository
 
+### AVM2 (ActionScript Virtual Machine 2) Overview
+
+- **avm2overview.pdf** (401 KB)
+  - Official Adobe ActionScript Virtual Machine 2 (AVM2) Overview
+  - Published: May 2007
+  - High-level overview of the AVM2 architecture and instruction set
+  - Source: https://www.adobe.com/content/dam/acom/en/devnet/pdf/avm2overview.pdf
+
+- **avm2overview.txt** (150 KB)
+  - Text version of the AVM2 Overview, extracted from the PDF
+  - Generated using: `pdftotext avm2overview.pdf avm2overview.txt`
+  - Contains all the specification content in plain text format
+
 ### AVM2 Opcode References
 
 - **opcodes.as** (15 KB)
@@ -42,13 +55,6 @@ This directory contains official Adobe Flash SWF and ActionScript specifications
   - Maps opcodes 0x00-0xFF to instruction handlers
   - Shows which opcodes are implemented vs XXX (unimplemented)
   - Source: Extracted from https://github.com/adobe-flash/avmplus/blob/master/core/Interpreter.cpp
-
-## Related Documentation
-
-For implementation guides using these specifications, see:
-- [../guides/abc-parser.md](../guides/abc-parser.md)
-- [../guides/as3-implementation.md](../guides/as3-implementation.md)
-- [../analysis/abc-implementation-info.md](../analysis/abc-implementation-info.md)
 
 ## External References
 
