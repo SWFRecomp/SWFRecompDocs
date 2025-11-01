@@ -1,0 +1,58 @@
+# SWFRecomp Documentation
+
+This repository contains documentation for the [SWFRecomp project](https://github.com/SWFRecomp/SWFRecomp), which aims to recompile Adobe Flash (SWF) content to C code.
+
+## Documentation Structure
+
+### Implementation Guides
+
+Step-by-step implementation guides for various components:
+
+- **[as3-implementation.md](guides/as3-implementation.md)** - ActionScript 3 implementation guide
+  - **[as3-seedling-implementation.md](guides/as3-seedling-implementation.md)** - An implementation guide for only the AS3 features required to run the game Seedling
+  - **[abc-parser-implementation.md](guides/abc-parser-implementation.md)** - Phase 1: ABC Parser implementation
+  - **[as3-test-swf-generation.md](guides/as3-test-swf-generation.md)** - Guide for generating AS3 test SWF files
+
+- **[font-implementation.md](guides/font-implementation.md)** - Implementation guide for font handling in SWF files
+  - **[font-phase1-implementation.md](guides/font-phase1-implementation.md)** - Phase 1: Basic font support implementation
+
+### Plans
+
+High-level project planning documents:
+
+- **[wasm-project-plan.md](plans/wasm-project-plan.md)** - Overall WebAssembly project architecture and roadmap
+
+### Status
+
+Current project status and progress tracking:
+
+- **[project-status.md](status/project-status.md)** - Current status of the SWFRecomp project
+
+### Reference
+
+Manually compiled reference material, separate from the official specifications:
+
+- **[trace-swf4-wasm-generation.md](reference/trace-swf4-wasm-generation.md)** - Complete walkthrough: SWF → C → WebAssembly pipeline
+- **[abc-format.md](reference/abc-format.md)** - Technical reference for the ActionScript Byte Code (ABC) file format
+
+### Specifications
+
+Official Adobe Flash and ActionScript specifications (see [specs/README.md](specs/README.md) for detailed source information):
+
+- **[swf-spec-19.txt](specs/swf-spec-19.txt)** - SWF File Format Specification (Version 19)
+- **[abc-format-46-16.txt](specs/abc-format-46-16.txt)** - ActionScript Bytecode (ABC) format specification
+- **[avm2_opcodes_raw.txt](specs/avm2_opcodes_raw.txt)** - Raw AVM2 opcode reference
+- **[opcodes.as](specs/opcodes.as)** - ActionScript opcode definitions
+- **[pdf/](specs/pdf/)** - PDF versions of official specifications
+- **[swf-spec-19-images/](specs/swf-spec-19-images/)** - Images referenced in SWF specification
+
+### Deprecated
+
+Older documentation that may still be useful for historical reference (see [deprecated/README.md](deprecated/README.md) for details):
+
+- Various implementation plans and analyses that have been superseded by current approaches
+- See [deprecated/](deprecated/) directory for full list
+
+## License
+
+See the main [SWFRecomp project](https://github.com/SWFRecomp/SWFRecomp) for licensing information.
