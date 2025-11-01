@@ -1,8 +1,11 @@
 # ABC Parser Implementation Guide - Phase 1
 
 **Document Version:** 1.0
+
 **Date:** October 29, 2025
+
 **Phase:** ABC Parser (First implementation step for AS3 support)
+
 **Language:** C++ (build-time tool only)
 
 ---
@@ -46,6 +49,7 @@ The parsed data will be used to **generate C runtime code** in Phase 2.
 ### Input and Output
 
 **Input:** SWF file with DoABC tags
+
 **Output:** In-memory ABC structures (later used for code generation)
 
 ```

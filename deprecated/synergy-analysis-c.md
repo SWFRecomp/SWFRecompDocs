@@ -1,8 +1,11 @@
 # Synergy Analysis: Manual C Conversion + SWFRecomp (Pure C)
 
 **Document Version:** 1.0
+
 **Date:** October 28, 2025
+
 **Purpose:** Identify synergies between manual Seedling C conversion and SWFRecomp AS3 implementation (both using pure C)
+
 **Language:** Pure C (per LittleCube's guidance)
 
 ---

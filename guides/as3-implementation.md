@@ -1,8 +1,11 @@
 # ActionScript 3 (AS3) Implementation Guide for SWFRecomp
 
 **Document Version:** 2.0
+
 **Date:** October 29, 2025
+
 **Status:** Planning Phase
+
 **Approach:** Pure C Implementation
 
 ---

@@ -1,7 +1,9 @@
 # Synergy Analysis: Manual Conversion + SWFRecomp
 
 **Document Version:** 1.0
+
 **Date:** October 28, 2024
+
 **Purpose:** Identify synergies between manual Seedling C++ conversion and SWFRecomp AS3 implementation
 
 ---

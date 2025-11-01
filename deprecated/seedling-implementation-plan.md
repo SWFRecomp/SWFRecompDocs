@@ -1,8 +1,11 @@
 # Seedling Game - Targeted AS3 Implementation Plan
 
 **Document Version:** 1.0
+
 **Date:** October 28, 2024
+
 **Game:** Seedling by Danny Yaroslavski (Alexander Ocias)
+
 **Target:** Minimal AS3 implementation to run Seedling specifically
 
 ---

@@ -24,9 +24,17 @@ High-level project planning documents:
 
 ### Status
 
-Current project status and progress tracking:
+Current project status and progress tracking (see [status/README.md](status/README.md) for details):
 
 - **[project-status.md](status/project-status.md)** - Current status of the SWFRecomp project
+- **[2025-11-01-string-variable-implementation.md](status/2025-11-01-string-variable-implementation.md)** - String variable storage and optimization implementation summary
+
+### Merge Analyses
+
+Branch merge documentation for coordinating updates across repositories (see [merge/README.md](merge/README.md) for details):
+
+- **[swfrecomp-wasm-support-merge-analysis.md](merge/swfrecomp-wasm-support-merge-analysis.md)** - SWFRecomp wasm-support → master merge analysis
+- **[swfmodernruntime-wasm-support-merge-analysis.md](merge/swfmodernruntime-wasm-support-merge-analysis.md)** - SWFModernRuntime wasm-support → master merge analysis
 
 ### Reference
 
@@ -53,6 +61,12 @@ Older documentation that may still be useful for historical reference (see [depr
 
 - Various implementation plans and analyses that have been superseded by current approaches
 - See [deprecated/](deprecated/) directory for full list
+
+### Scripts
+
+Maintenance utilities for the documentation repository (see [scripts/README.md](scripts/README.md) for details):
+
+- **[fix-markdown-formatting.sh](scripts/fix-markdown-formatting.sh)** - Fix consecutive double-asterisk lines in markdown files
 
 ## License
 

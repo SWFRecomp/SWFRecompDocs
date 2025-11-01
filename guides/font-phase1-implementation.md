@@ -913,10 +913,15 @@ Note: NumGlyphs comes from corresponding DefineFont tag
 ## Document Information
 
 **Version:** 1.1
+
 **Date:** 2025-10-31
+
 **Phase:** 1 of 4
+
 **Status:** Implementation Ready
+
 **Estimated Effort:** 2-3 days
+
 **Revision Notes:** Fixed FontFlags bit ordering (v1.1) - corrected bits 1-4 to match SWF spec
 
 **Files Modified:**

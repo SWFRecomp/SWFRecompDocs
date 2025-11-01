@@ -1,7 +1,9 @@
 # ABC Parser Research and Implementation Options
 
 **Document Version:** 1.0
+
 **Date:** October 29, 2025
+
 **Purpose:** Research findings on ABC file format specifications and open source implementation options
 
 ---
@@ -308,7 +310,9 @@ Trait:
 ### 1. Ruffle (Rust)
 
 **Project:** Flash Player emulator written in Rust
+
 **Repository:** `github.com/ruffle-rs/ruffle`
+
 **ABC Parser Location:** `swf/src/avm2/read.rs`
 
 #### License
@@ -384,7 +388,9 @@ FetchContent_Declare(
 ### 2. Adobe avmplus (C++)
 
 **Project:** Official ActionScript Virtual Machine
+
 **Repository:** `github.com/adobe/avmplus` and `github.com/adobe-flash/avmplus`
+
 **ABC Parser Location:** `core/` directory, multiple files
 
 #### License
@@ -456,7 +462,9 @@ FetchContent_Declare(
 ### 3. Lightspark (C++)
 
 **Project:** Open source Flash player for Linux
+
 **Repository:** `github.com/lightspark/lightspark`
+
 **ABC Parser Location:** `src/scripting/abc.cpp`, `src/scripting/abc_opcodes.cpp`
 
 #### License
@@ -517,6 +525,7 @@ FetchContent_Declare(
 ### 4. RABCDAsm (D Language)
 
 **Project:** ActionScript 3 assembler/disassembler
+
 **Repository:** `github.com/CyberShadow/RABCDAsm`
 
 #### License
@@ -823,5 +832,7 @@ The parser can be implemented in 2-3 weeks and will serve as the foundation for 
 ---
 
 **Document prepared:** October 29, 2025
+
 **Verification sources:** Adobe official specifications, multiple open source implementations
+
 **Status:** Ready for implementation

@@ -1,7 +1,9 @@
 # ABC File Format Reference
 
 **Version:** 1.0
+
 **Date:** October 31, 2025
+
 **Purpose:** Technical reference for the ActionScript Byte Code (ABC) file format
 
 ---
@@ -1011,4 +1013,5 @@ traits: [method declarations only]
 ---
 
 **Document Status:** Complete technical reference
+
 **Last Updated:** October 31, 2025

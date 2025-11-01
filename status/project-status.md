@@ -1,6 +1,7 @@
 # SWFRecomp & SWFModernRuntime - Complete Project Status
 
 **Last Updated:** October 26, 2025
+
 **Document Version:** 2.0 - Complete Analysis with Runtime Integration
 
 ---
@@ -47,7 +48,9 @@
 ### SWFRecomp (Static Recompiler)
 
 **Repository:** https://github.com/SWFRecomp/SWFRecomp
+
 **Purpose:** Translates SWF bytecode and graphics into C source code
+
 **Inspiration:** N64Recomp by Wiseguy
 
 **Philosophy:**
@@ -56,7 +59,9 @@
 ### SWFModernRuntime (Execution Environment)
 
 **Repository:** https://github.com/SWFRecomp/SWFModernRuntime
+
 **Purpose:** Provides GPU-accelerated runtime for recompiled Flash games
+
 **Inspiration:** N64ModernRuntime (ultramodern + librecomp)
 
 **Key Innovation:** Zero per-frame CPU overhead after initialization. All vertex data uploaded once to GPU, shader-based transformations.
@@ -171,6 +176,7 @@ Emit C Arrays (u32 shape_data[][4])
 #### Generated Output Example
 
 **Input:** SWF shape definition
+
 **Output (draws.c):**
 ```c
 u32 shape_data[186][4] = {
@@ -392,9 +398,13 @@ frame_func frame_funcs[] = {
 ### Repository Information
 
 **GitHub:** https://github.com/SWFRecomp/SWFModernRuntime
+
 **License:** MIT
+
 **Commits:** 69
+
 **Last Updated:** October 27, 2025
+
 **Build Size:** 430KB static library
 
 ### Architecture
@@ -591,6 +601,7 @@ make -j$(nproc)
 ```
 
 **Build Time:** ~30 seconds
+
 **Executable Size:** ~3MB
 
 #### 2. Build SWFModernRuntime
@@ -613,7 +624,9 @@ make -j$(nproc)
 ```
 
 **Build Time:** ~10 minutes (SDL3 is large)
+
 **Library Size:** 430KB static library
+
 **SDL3 Size:** ~8MB shared library
 
 #### 3. Run SWFRecomp on a Test SWF
@@ -675,6 +688,7 @@ export LD_LIBRARY_PATH=../lib/SWFModernRuntime/build/lib/SDL3:$LD_LIBRARY_PATH
 ### Test Suite Overview
 
 **Location:** `SWFRecomp/tests/`
+
 **Total Tests:** 64 directories
 - **ActionScript Tests:** 50 tests (SWF 4 focus)
 - **Graphics Tests:** 14 tests
@@ -845,7 +859,9 @@ bash all_tests.sh
 ### Successful Minimal Runtime Test
 
 **Date:** October 26, 2025
+
 **Test:** `trace_swf_4`
+
 **Runtime:** Custom stub (console-only)
 
 **Result:** ✅ **COMPLETE SUCCESS**
@@ -885,7 +901,9 @@ sup from SWF 4
 ### Full Runtime Integration Test
 
 **Date:** October 26, 2025
+
 **Test:** `two_squares` (graphics test)
+
 **Runtime:** SWFModernRuntime (GPU-accelerated)
 
 **Result:** ⚠️ **PARTIAL SUCCESS - Window Created, Rendering Issue**
@@ -1573,7 +1591,9 @@ Oct 27        Bitmap style selection, runtime updates
 #### 1. Runtime Integration Segfault
 
 **Status:** ❌ Active Issue
+
 **Priority:** Critical
+
 **Symptom:** Window opens but crashes before rendering
 
 **Investigation Needed:**
@@ -1592,6 +1612,7 @@ Oct 27        Bitmap style selection, runtime updates
 #### 2. API Version Synchronization
 
 **Status:** ⚠️ Ongoing Concern
+
 **Priority:** High
 
 **Issue:** Both projects evolving rapidly, APIs may drift.
@@ -1703,18 +1724,23 @@ Oct 27        Bitmap style selection, runtime updates
 ### Common Build Issues
 
 **Issue:** `cmake: command not found`
+
 **Solution:** `sudo apt-get install cmake`
 
 **Issue:** `git submodule` directories empty
+
 **Solution:** `git submodule update --init --recursive`
 
 **Issue:** `libSDL3.so.0: cannot open shared object`
+
 **Solution:** `export LD_LIBRARY_PATH=path/to/SDL3:$LD_LIBRARY_PATH`
 
 **Issue:** CMake can't find Vulkan
+
 **Solution:** `sudo apt-get install vulkan-tools libvulkan-dev`
 
 **Issue:** Window doesn't appear
+
 **Solution:** Check `$DISPLAY` environment variable, ensure X server running
 
 ### Platform-Specific Notes
@@ -1918,7 +1944,11 @@ The biggest challenge is completing the missing features (sound, sprites, full A
 ---
 
 **Document Version:** 2.0
+
 **Last Updated:** October 26, 2025
+
 **Next Update:** When integration issues are resolved
+
 **Maintainer:** Documentation based on project analysis
+
 **Status:** ✅ Comprehensive and current

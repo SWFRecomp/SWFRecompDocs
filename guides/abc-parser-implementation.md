@@ -1,7 +1,9 @@
 # ABC Parser Implementation Guide
 
 **Version:** 1.0
+
 **Date:** October 31, 2025
+
 **Purpose:** Step-by-step guide for implementing the ABC parser in SWFRecomp
 
 ---
@@ -1133,6 +1135,7 @@ void free_abc(ABCFile* abc) {
 ### DoABC Tag Handler Location
 
 **File:** `src/swf.cpp`
+
 **Line:** Around 889-894
 
 **Current code (commented out):**
@@ -1611,5 +1614,7 @@ trait.attributes = (kind_and_attrs >> 4);  // High 4 bits
 ---
 
 **Document Status:** Complete implementation guide
+
 **Last Updated:** October 31, 2025
+
 **Next Document:** Phase 2 - ABC Code Generator (to be created)

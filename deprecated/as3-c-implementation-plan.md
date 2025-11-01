@@ -1,8 +1,11 @@
 # ActionScript 3 (AS3) Implementation Plan for SWFRecomp - Pure C Approach
 
 **Document Version:** 1.0
+
 **Date:** October 28, 2025
+
 **Status:** Planning Phase
+
 **Approach:** Pure C Implementation (per LittleCube's guidance)
 
 ---

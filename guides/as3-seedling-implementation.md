@@ -1,9 +1,13 @@
 # Seedling Game - AS3 Implementation Guide
 
 **Document Version:** 2.0
+
 **Date:** October 29, 2025
+
 **Game:** Seedling by Danny Yaroslavski (Alexander Ocias)
+
 **Target:** Minimal AS3 implementation to run Seedling specifically
+
 **Language:** Pure C
 
 ---
@@ -873,24 +877,35 @@ AS3Value* poolAlloc(MemoryPool* pool) {
 ### Functional Tests
 
 **Boot:** Game loads, main menu appears
+
 **Graphics:** Sprites render, animations play
+
 **Input:** Keyboard responds, player moves
+
 **Physics:** Collision works, movement correct
+
 **Combat:** Weapons work, hit detection works
+
 **Audio:** Sounds play, music plays
+
 **Save:** Can save and load
+
 **Completion:** Can complete entire game
 
 ### Performance Tests
 
 **Frame Rate:** Consistent 60 FPS, frame time < 16ms
+
 **Memory:** No leaks (Valgrind), reasonable usage
+
 **Stress:** Many entities, still 60 FPS
 
 ### Memory Safety Tests
 
 **Valgrind:** Zero memory leaks, zero invalid reads/writes
+
 **AddressSanitizer:** Compile with -fsanitize=address, zero errors
+
 **Manual Review:** Check all malloc/free pairs, verify ownership
 
 ---

@@ -1,7 +1,9 @@
 # C vs C++ Architecture in SWFRecomp
 
 **Document Version:** 1.0
+
 **Date:** October 28, 2025
+
 **Status:** Architecture Documentation
 
 ---

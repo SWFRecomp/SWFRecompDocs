@@ -1,7 +1,9 @@
 # AS3 Test SWF Generation Guide
 
 **Document Version:** 1.0
+
 **Date:** October 29, 2025
+
 **Purpose:** Guide for creating ActionScript 3 test SWF files for ABC parser testing
 
 ---
@@ -1195,5 +1197,7 @@ rabcdasm HelloWorld-0.abc
 ---
 
 **Document Status:** Complete
+
 **Last Updated:** October 29, 2025
+
 **Author:** Claude Code

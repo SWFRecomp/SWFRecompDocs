@@ -1,8 +1,11 @@
 # ActionScript 3 (AS3) Implementation Plan for SWFRecomp
 
 **Document Version:** 1.0
+
 **Date:** October 28, 2024
+
 **Status:** Planning Phase
+
 **Recommended Approach:** Option A - Hybrid C/C++ Strategy
 
 ---
@@ -82,7 +85,9 @@ SWFRecomp is a static recompiler that translates Adobe Flash SWF files into port
 ### SWFRecomp (Compiler)
 
 **Language:** C++17
+
 **Purpose:** Parse SWF, translate bytecode to C, generate source files
+
 **Key files:**
 - `src/swf.cpp` (61,997 bytes) - Main SWF parser
 - `src/action/action.cpp` (9,317 bytes) - AS1/2 bytecode translator
@@ -94,7 +99,9 @@ SWFRecomp is a static recompiler that translates Adobe Flash SWF files into port
 ### SWFModernRuntime (Runtime Library)
 
 **Language:** C17
+
 **Purpose:** Execute recompiled Flash code with GPU-accelerated rendering
+
 **Key files:**
 - `src/libswf/swf.c` - Runtime loop, frame execution
 - `src/actionmodern/action.c` - AS1/2 opcode implementations
@@ -105,6 +112,7 @@ SWFRecomp is a static recompiler that translates Adobe Flash SWF files into port
 ### Generated Code
 
 **Current output:** Pure C code (`.c` files)
+
 **Example:**
 ```c
 void script_0(char* stack, u32* sp)
@@ -1027,12 +1035,15 @@ if (has_as3 && has_as1_2) {
 ### Overview
 
 **Total duration:** 10-16 months (1350-2350 hours with C++)
+
 **Phases:** 5 major phases
+
 **Dependencies:** None (can start after AS1/2 stabilization)
 
 ### Phase 0: Prerequisites (Current - 2 months)
 
 **Status:** In progress
+
 **Blockers:** Must complete before Phase 1
 
 **Tasks:**
@@ -1059,7 +1070,9 @@ if (has_as3 && has_as1_2) {
 ### Phase 1: ABC Parser Foundation (3-4 months)
 
 **Goal:** Parse ABC bytecode into data structures
+
 **Language:** C++
+
 **Estimated effort:** 300-500 hours
 
 #### Milestones
@@ -1183,7 +1196,9 @@ if (has_as3 && has_as1_2) {
 ### Phase 2: Basic Code Generation (2-3 months)
 
 **Goal:** Generate C++ code for simple AS3 scripts
+
 **Language:** C++
+
 **Estimated effort:** 200-350 hours
 
 #### Milestones
@@ -1298,7 +1313,9 @@ void script_init(avm2::AVM2Context* ctx) {
 ### Phase 3: Object Model (3-4 months)
 
 **Goal:** Full OOP support - classes, inheritance, methods, properties
+
 **Language:** C++
+
 **Estimated effort:** 250-400 hours
 
 #### Milestones
@@ -1489,7 +1506,9 @@ public:
 ### Phase 4: Advanced Features (4-6 months)
 
 **Goal:** Complete opcode set, exceptions, built-ins, standard library
+
 **Language:** C++
+
 **Estimated effort:** 400-700 hours
 
 #### Milestones
@@ -1608,7 +1627,9 @@ Implement all 164 opcodes (114 remaining):
 ### Phase 5: Optimization & Polish (2-3 months)
 
 **Goal:** Production-ready AS3 support
+
 **Language:** C++
+
 **Estimated effort:** 200-400 hours
 
 #### Milestones
@@ -2592,6 +2613,7 @@ SWFModernRuntime/
 ### Code Style
 
 **C++ Standard:** C++17
+
 **Naming Conventions:**
 - Classes: PascalCase (AS3Object, AVM2Context)
 - Methods: camelCase (getProperty, pushScope)

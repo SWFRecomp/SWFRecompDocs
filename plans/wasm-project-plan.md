@@ -1,9 +1,13 @@
 # SWFRecomp WASM Port - Project Plan
 
 **Document Version:** 1.1
+
 **Created:** October 27, 2025
+
 **Last Updated:** October 27, 2025
+
 **Upstream Project:** SWFRecomp + SWFModernRuntime
+
 **Status:** Phase 1 - Implementation In Progress
 
 ---
@@ -128,7 +132,9 @@ Build Target Selection
 ## Phase 1: Canvas2D Prototype
 
 **Status:** In Progress
+
 **Priority:** High
+
 **Goal:** Prove WASM compilation works end-to-end
 
 ### Progress Update
@@ -520,7 +526,9 @@ emmake make
 ## Phase 2: WebGL2 Backend (Optional → Recommended)
 
 **Status:** Planned (Priority Increased)
+
 **Priority:** Medium → High
+
 **Goal:** GPU-accelerated rendering in browser
 
 ### Status Update
@@ -667,8 +675,11 @@ endif()
 ## Phase 3: SDL3 WebGPU Migration
 
 **Timeline:** TBD (waiting on SDL3)
+
 **Status:** Future
+
 **Priority:** High (when available)
+
 **Goal:** Use official SDL3 WebGPU backend
 
 ### Monitoring SDL3 Progress
@@ -1395,7 +1406,9 @@ git merge upstream-runtime/master
 
 #### Risk 1: Emscripten Compatibility Issues
 **Probability:** Medium
+
 **Impact:** High
+
 **Mitigation:**
 - Test early and often
 - Use stable Emscripten version
@@ -1404,7 +1417,9 @@ git merge upstream-runtime/master
 
 #### Risk 2: SDL3 WebGPU Delayed
 **Probability:** High
+
 **Impact:** Medium
+
 **Mitigation:**
 - ✅ Phase 1 provides working solution
 - ✅ Phase 2 provides fallback
@@ -1412,7 +1427,9 @@ git merge upstream-runtime/master
 
 #### Risk 3: Upstream Breaking Changes
 **Probability:** High (active development)
+
 **Impact:** Medium
+
 **Mitigation:**
 - Weekly upstream syncs
 - Good abstraction layer
@@ -1420,7 +1437,9 @@ git merge upstream-runtime/master
 
 #### Risk 4: Performance Issues
 **Probability:** Medium
+
 **Impact:** Medium
+
 **Mitigation:**
 - Phase 1: Accept poor performance (proof of concept)
 - Phase 2: GPU acceleration solves most issues
@@ -1429,7 +1448,9 @@ git merge upstream-runtime/master
 
 #### Risk 5: Browser Compatibility
 **Probability:** Low
+
 **Impact:** Low
+
 **Mitigation:**
 - Target modern browsers (last 2 years)
 - Use standard APIs (WebGL2, WebGPU)
@@ -1440,7 +1461,9 @@ git merge upstream-runtime/master
 
 #### Risk 1: Scope Creep
 **Probability:** Medium
+
 **Impact:** Medium
+
 **Mitigation:**
 - Clear phase boundaries
 - Stick to plan
@@ -1449,7 +1472,9 @@ git merge upstream-runtime/master
 
 #### Risk 2: Maintenance Burden
 **Probability:** High
+
 **Impact:** High
+
 **Mitigation:**
 - ✅ Minimize custom code (rendering backends only)
 - ✅ Automate testing (CI/CD)
@@ -1458,7 +1483,9 @@ git merge upstream-runtime/master
 
 #### Risk 3: Upstream Divergence
 **Probability:** Medium
+
 **Impact:** High
+
 **Mitigation:**
 - Regular syncs
 - Clean abstraction prevents conflicts
@@ -1576,7 +1603,9 @@ git merge upstream-runtime/master
 ### Emscripten
 
 **Version:** Latest stable (3.1.x as of Oct 2025)
+
 **Documentation:** https://emscripten.org/docs/
+
 **Installation:**
 ```bash
 git clone https://github.com/emscripten-core/emsdk.git
@@ -1589,19 +1618,25 @@ source ./emsdk_env.sh
 ### WebGL2
 
 **Browser Support:** All modern browsers (2020+)
+
 **Reference:** https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API
+
 **GLSL ES 3.0:** https://www.khronos.org/files/opengles_shading_language.pdf
 
 ### WebGPU
 
 **Browser Support:** Chrome 113+, Edge 113+, (Firefox/Safari experimental)
+
 **Reference:** https://gpuweb.github.io/gpuweb/
+
 **Status:** https://caniuse.com/webgpu
 
 ### SDL3
 
 **Repository:** https://github.com/libsdl-org/SDL
+
 **SDL_GPU Documentation:** https://wiki.libsdl.org/SDL3/CategoryGPU
+
 **Emscripten Support:** https://wiki.libsdl.org/SDL3/README/emscripten
 
 ---

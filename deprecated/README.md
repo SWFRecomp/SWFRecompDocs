@@ -8,6 +8,10 @@ The SWFRecomp project has evolved significantly, and the implementation approach
 
 ## Files
 
+### String Variable Implementation (2025-11-01)
+
+- **[2025-11-01/](2025-11-01/)** - Documentation from string variable storage and optimization implementation (deprecated in favor of consolidated status document)
+
 ### ActionScript 3 Implementation Plans
 
 - **[as3-c-implementation-plan.md](as3-c-implementation-plan.md)** - Original AS3 implementation plan with time estimates (Pure C approach)

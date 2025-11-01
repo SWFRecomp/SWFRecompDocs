@@ -1,9 +1,13 @@
 # Seedling Manual C Conversion Plan
 
 **Document Version:** 1.0
+
 **Date:** October 28, 2025
+
 **Game:** Seedling by Danny Yaroslavski (Alexander Ocias)
+
 **Target:** Manual conversion from ActionScript 3 to C, then compile to WASM
+
 **Approach:** Pure C (per LittleCube's guidance)
 
 ---

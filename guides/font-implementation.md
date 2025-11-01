@@ -5,7 +5,9 @@
 This document provides a comprehensive analysis of the current state of font support in SWFRecomp and outlines the work required to achieve full font and text rendering functionality.
 
 **Current Status:** Basic glyph shape parsing only
+
 **Completion:** ~15% of full font support
+
 **Critical Gap:** No character-to-glyph mapping (DefineFontInfo not implemented)
 
 ---
@@ -165,6 +167,7 @@ Same structure as DefineFont2 but with:
 #### DefineFont4 (Tag 91) - Embedded OpenType/CFF Fonts
 
 **Introduced in:** SWF 10 (Flash Player 10+)
+
 **Purpose:** Supports the Flash Text Engine with OpenType CFF font embedding
 
 ```
@@ -563,6 +566,7 @@ The `wide_codes` flag in FontFlags determines 8-bit vs 16-bit.
 ### Phase 1: Basic Font Support (Critical)
 
 **Priority: URGENT**
+
 **Estimated Effort:** 2-3 days
 
 **Tasks:**
@@ -595,6 +599,7 @@ The `wide_codes` flag in FontFlags determines 8-bit vs 16-bit.
 ### Phase 2: Static Text Support
 
 **Priority: HIGH**
+
 **Estimated Effort:** 1 week
 
 **Tasks:**
@@ -632,6 +637,7 @@ The `wide_codes` flag in FontFlags determines 8-bit vs 16-bit.
 ### Phase 3: Enhanced Font Support
 
 **Priority: MEDIUM**
+
 **Estimated Effort:** 1-2 weeks
 
 **Tasks:**
@@ -668,6 +674,7 @@ The `wide_codes` flag in FontFlags determines 8-bit vs 16-bit.
 ### Phase 4: Dynamic Text Support
 
 **Priority: MEDIUM-HIGH**
+
 **Estimated Effort:** 2-3 weeks
 
 **Tasks:**
@@ -716,6 +723,7 @@ The `wide_codes` flag in FontFlags determines 8-bit vs 16-bit.
 ### Phase 5: Advanced Features (Future)
 
 **Priority: LOW**
+
 **Estimated Effort:** Ongoing
 
 **Tasks:**
@@ -890,6 +898,9 @@ Estimated total effort: **6-8 weeks** for full implementation through Phase 4.
 ---
 
 **Document Version:** 1.0
+
 **Last Updated:** 2025-10-30
+
 **Author:** Analysis by Claude Code
+
 **Status:** Draft
