@@ -8,7 +8,7 @@ This repository contains documentation for the [SWFRecomp project](https://githu
 
 ### Live Demos
 
-Interactive WebAssembly demonstrations of recompiled Flash content (see [gh-pages/](gh-pages/) for source):
+Interactive WebAssembly demonstrations of recompiled Flash content (see [docs/](docs/) for source):
 
 - **[trace_swf_4 Demo](https://swfrecomp.github.io/SWFRecompDocs/examples/trace-swf-test/)** - Console output demo showing SWF → C → WASM pipeline
 

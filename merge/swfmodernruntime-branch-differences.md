@@ -4,24 +4,27 @@
 
 The `wasm-support` branch contains enhancements to the SWFModernRuntime project, adding improved variable storage, test infrastructure, documentation, and foundational WASM support. This document comprehensively lists all differences between the two branches.
 
+**Note:** This document was updated on 2025-11-02 to reflect the current state of the branches. The docs/ directory (GitHub Pages demos) was moved to SWFRecompDocs and is no longer part of this diff.
+
 **Statistics:**
-- **23 files changed**
-- **2,417 insertions (+)**
+- **15 files changed** (6 modified, 9 new)
+- **1,832 insertions (+)**
 - **139 deletions (-)**
-- **8 commits** ahead of master
+- **9 commits** ahead of master
 
 ## Commit History
 
-The wasm-support branch includes 8 commits beyond master:
+The wasm-support branch includes 9 commits beyond master:
 
-1. `e901079` - cleanup documentation and build artifacts
-2. `1482151` - variable optimization
-3. `d971ecc` - added two more docs
-4. `b58ef8f` - added test suite for string variables
-5. `3b8a821` - removed some unnecessary files
-6. `d36d2e9` - updated documentation again
-7. `0ec9d1e` - updated documentation
-8. `10b5204` - initial commit for this fork
+1. `515cf7a` - cleanup for merge
+2. `e901079` - cleanup documentation and build artifacts
+3. `1482151` - variable optimization
+4. `d971ecc` - added two more docs
+5. `b58ef8f` - added test suite for string variables
+6. `3b8a821` - removed some unnecessary files
+7. `d36d2e9` - updated documentation again
+8. `0ec9d1e` - updated documentation
+9. `10b5204` - initial commit for this fork
 
 ## Major Changes by Category
 
@@ -31,24 +34,26 @@ The wasm-support branch includes 8 commits beyond master:
 
 **Key Changes:**
 - **Project Description**: Changed from "This is still a stupid idea" to professional WebAssembly port description
-- **Added Live Demo Link**: https://peerinfinity.github.io/SWFModernRuntime/
+- **Added Live Demo Link**: https://swfrecomp.github.io/SWFRecompDocs/ (demos now hosted in SWFRecompDocs)
 - **Added Comprehensive Sections**:
   - What is This? (explains WebAssembly port)
-  - Documentation (links to guides)
+  - Documentation (links to SWFRecompDocs)
   - Quick Demo (with live link)
   - Project Goals (WebAssembly compilation objectives)
-  - Architecture (SWF ’ C ’ WASM pipeline diagram)
-  - Repository Structure (directory layout)
-  - Building (prerequisites and examples)
+  - Architecture (SWF â†’ C â†’ WASM pipeline diagram)
+  - Repository Structure (directory layout - focus on runtime and test suite)
+  - Building (test suite instructions)
   - Current Status (feature table)
-  - Roadmap (three-phase plan)
+  - Key Features in This Fork (variable storage improvements)
   - Upstream Sync (merge strategy)
 
 **Tone Change:**
 - From: Casual, self-deprecating
 - To: Professional, technical project documentation
 
-**Size**: README grew from ~100 lines to ~170 lines
+**Size**: README grew from ~100 lines to ~128 lines
+
+**Note:** The README now focuses on the runtime library and test suite. Live demos and WASM build examples are documented in the SWFRecompDocs repository.
 
 ### 2. Core Variable Storage Improvements (src/actionmodern/)
 
@@ -92,12 +97,12 @@ typedef struct {
 
 1. **Hash map storage** (existing, for dynamic variable names):
    ```c
-   hashmap* var_map = NULL;  // name ’ ActionVar*
+   hashmap* var_map = NULL;  // name ï¿½ ActionVar*
    ```
 
 2. **Array storage** (NEW, for constant string IDs):
    ```c
-   ActionVar** var_array = NULL;     // ID ’ ActionVar*
+   ActionVar** var_array = NULL;     // ID ï¿½ ActionVar*
    size_t var_array_size = 0;        // Array size
    ```
 
@@ -301,7 +306,7 @@ void pushVar(char* stack, u32* sp, ActionVar* var) {
 ```
 
 **All numeric operations updated:**
-- Changed `var->value` ’ `var->data.numeric_value`
+- Changed `var->value` ï¿½ `var->data.numeric_value`
 - Updated in: actionAdd, actionSubtract, actionMultiply, actionDivide
 - Updated in: actionEquals, actionLess, actionAnd, actionOr
 
@@ -362,39 +367,7 @@ make -f Makefile.test_simple             # Run simple tests
 make -f Makefile.test_string_id          # Run ID tests
 ```
 
-### 5. GitHub Pages Website (docs/)
-
-**NEW: Complete website with live demos**
-
-Added files:
-- `docs/index.html` (250 lines) - Main landing page
-- `docs/README.md` (32 lines) - Documentation index
-- `docs/favicon.svg` (7 lines) - Site icon
-- `docs/examples/trace-swf-test/index.html` (203 lines) - Interactive demo
-- `docs/examples/trace-swf-test/trace_swf.js` (minified) - WASM JavaScript
-- `docs/examples/trace-swf-test/trace_swf.wasm` (7,688 bytes) - Compiled WASM
-
-**Website Features:**
-- Live interactive demo of SWF ’ WASM
-- Console output display
-- Run/Clear controls
-- Professional dark theme UI
-- Comprehensive explanations
-
-### 6. WASM Infrastructure (wasm/)
-
-**NEW: WASM-specific code and templates**
-
-Added files:
-- `wasm/README.md` (75 lines) - WASM documentation
-- `wasm/shell-templates/favicon.svg` (7 lines) - Template resources
-
-**Purpose:**
-- Separate WASM code from upstream
-- Minimize merge conflicts
-- Provide templates for new demos
-
-### 7. Build System (.gitignore)
+### 5. Build System (.gitignore)
 
 **Added entries:**
 ```
@@ -431,7 +404,7 @@ docs/examples/*/trace_swf.js
 ### Modified Files (6 files)
 
 1. **README.md**
-   - Complete rewrite: experimental ’ professional
+   - Complete rewrite: experimental ï¿½ professional
    - Added: Architecture, roadmap, documentation links
    - +81 lines, -58 lines
 
@@ -454,7 +427,7 @@ docs/examples/*/trace_swf.js
 
 5. **src/actionmodern/action.c**
    - Updated: All variable operations to use new structure
-   - Changed: var->value ’ var->data.numeric_value (everywhere)
+   - Changed: var->value ï¿½ var->data.numeric_value (everywhere)
    - Changed: String access to check owns_memory flag
    - +209 lines, -124 lines
 
@@ -466,17 +439,7 @@ docs/examples/*/trace_swf.js
    - Added: Memory cleanup in freeMap
    - +186 lines, -10 lines
 
-### New Files (17 files)
-
-**Documentation (3 files):**
-- docs/README.md (32 lines)
-- docs/index.html (250 lines)
-- docs/favicon.svg (7 lines)
-
-**Live Demo (3 files):**
-- docs/examples/trace-swf-test/index.html (203 lines)
-- docs/examples/trace-swf-test/trace_swf.js (minified)
-- docs/examples/trace-swf-test/trace_swf.wasm (7,688 bytes)
+### New Files (9 files)
 
 **Test Suite (5 files):**
 - test_variables_simple.c (310 lines)
@@ -491,9 +454,7 @@ docs/examples/*/trace_swf.js
 - Makefile.test_string_id (44 lines)
 - Makefile.test_simple_string_id (31 lines)
 
-**WASM Infrastructure (2 files):**
-- wasm/README.md (75 lines)
-- wasm/shell-templates/favicon.svg (7 lines)
+**Note:** The docs/ directory (6 files with live demos) and wasm/ directory (2 files) were moved to SWFRecompDocs and are no longer part of this diff.
 
 ## Technical Improvements Summary
 
@@ -522,16 +483,10 @@ docs/examples/*/trace_swf.js
 - **Documentation**: Tests serve as usage examples
 
 ### 5. Documentation
-- **Professional README**: Complete project overview
-- **Live Demos**: Working examples in browser
-- **Architecture Docs**: Clear system design
+- **Professional README**: Complete project overview with links to SWFRecompDocs
+- **Live Demos**: Working examples hosted at https://swfrecomp.github.io/SWFRecompDocs/
+- **Clear Focus**: Runtime library and test suite
 - **Upstream Compatibility**: Merge strategy documented
-
-### 6. WASM Foundation
-- **Separate Directory**: wasm/ for WASM-specific code
-- **Templates**: Shell templates for new demos
-- **GitHub Pages**: Deployment infrastructure
-- **Demo Site**: Live examples for users
 
 ## Impact Assessment
 
@@ -563,18 +518,17 @@ The `wasm-support` branch represents a **major improvement** to SWFModernRuntime
 
 1. **Variable Storage Overhaul**: Complete rewrite with Copy-on-Store, array optimization, and memory management
 2. **Test Suite**: 1,100+ lines of comprehensive tests
-3. **Documentation**: Professional README, live demos, architecture docs
-4. **WASM Foundation**: Infrastructure for WebAssembly compilation
-5. **Memory Safety**: Proper heap management, no leaks
-6. **Performance**: O(1) variable lookup for constants
+3. **Documentation**: Professional README with links to SWFRecompDocs for live demos and guides
+4. **Memory Safety**: Proper heap management, no leaks
+5. **Performance**: O(1) variable lookup for constants
 
 **Total Changes:**
-- 23 files changed
-- 2,417 additions
+- 15 files changed (6 modified, 9 new)
+- 1,832 additions
 - 139 deletions
-- 8 commits
+- 9 commits
 
-**Key Achievement:** Correct and efficient variable storage that matches ActionScript semantics while enabling WASM compilation.
+**Key Achievement:** Correct and efficient variable storage that matches ActionScript semantics while enabling WASM compilation. Live demos are now hosted at https://swfrecomp.github.io/SWFRecompDocs/
 
 **Most Important Change:** The variable storage overhaul (variables.c, variables.h, action.c) - this is the foundation for correct ActionScript execution and enables the string ID optimization that SWFRecomp now generates.
 

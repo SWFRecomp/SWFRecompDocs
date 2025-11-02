@@ -4,9 +4,11 @@
 
 The `wasm-support` branch contains significant enhancements to the SWFRecomp project, adding WebAssembly build support, improved documentation, better build automation, and enhanced ActionScript variable handling. This document comprehensively lists all differences between the two branches.
 
+**Note:** This document was updated on 2025-11-02 to reflect the current state of the branches. The wasm-hello-world example files and docs/ directory (GitHub Pages) were moved to SWFRecompDocs and are no longer part of this diff.
+
 **Statistics:**
-- **35 files changed**
-- **2,709 insertions (+)**
+- **24 files changed**
+- **1,848 insertions (+)**
 - **72 deletions (-)**
 - **18 commits** ahead of master
 
@@ -70,31 +72,13 @@ The wasm-support branch includes 18 commits beyond master:
 
 **Size**: README grew from ~100 lines to ~266 lines
 
-### 2. GitHub Pages Website (docs/)
+**Note:** The README references live demos at https://swfrecomp.github.io/SWFRecompDocs/ - these demo files are hosted in the SWFRecompDocs repository, not in SWFRecomp.
 
-**NEW: Complete website with live demos**
-
-Added files:
-- `docs/index.html` (272 lines) - Main landing page
-- `docs/favicon.svg` (7 lines) - Site icon
-- `docs/.gitignore` (2 lines) - Build artifacts gitignore
-- `docs/examples/trace-swf-test/index.html` (203 lines) - Interactive demo page
-- `docs/examples/trace-swf-test/trace_swf.js` (1 line, minified) - Compiled WASM JavaScript
-- `docs/examples/trace-swf-test/trace_swf.wasm` (binary, 7,688 bytes) - Compiled WebAssembly
-
-**Website Features:**
-- Live interactive demo of SWF � WASM conversion
-- Console output display showing "sup from SWF 4"
-- Run/Clear controls
-- Status indicators (Loading/Ready/Error)
-- Professional dark theme UI
-- Comprehensive explanations of the recompilation process
-
-### 3. Core ActionScript Implementation Changes (src/action/action.cpp)
+### 2. Core ActionScript Implementation Changes (src/action/action.cpp)
 
 **Major Enhancements to Variable Handling:**
 
-#### 3.1 String Deduplication System
+#### 2.1 String Deduplication System
 
 **Added:**
 - `std::map<std::string, size_t> string_to_id` - Tracks declared strings to prevent duplicates
@@ -113,7 +97,7 @@ Added files:
 - Reduces memory footprint
 - More efficient code generation
 
-#### 3.2 Simplified Variable Operations
+#### 2.2 Simplified Variable Operations
 
 **Changed GetVariable implementation:**
 ```cpp
@@ -142,7 +126,7 @@ actionSetVariable(stack, sp);
 - Better encapsulation of variable operations
 - Easier to maintain and extend
 
-#### 3.3 Enhanced String Push with ID Tracking
+#### 2.3 Enhanced String Push with ID Tracking
 
 **Changed:**
 ```cpp
@@ -158,7 +142,7 @@ PUSH_STR_ID(str_X, length, string_id);
 - Enables more efficient string variable handling
 - Supports Copy-on-Store optimization
 
-#### 3.4 MAX_STRING_ID Constant Generation
+#### 2.4 MAX_STRING_ID Constant Generation
 
 **Added:**
 ```cpp
@@ -175,7 +159,7 @@ context.out_script_decls << endl
 - Enables static array allocation instead of dynamic
 - Better performance and memory management
 
-### 4. Header Changes (include/action/action.hpp)
+### 3. Header Changes (include/action/action.hpp)
 
 **Added:**
 ```cpp
@@ -186,9 +170,9 @@ std::map<std::string, size_t> string_to_id;  // Track declared strings
 size_t getStringId(const char* str);         // Get ID for previously declared string
 ```
 
-### 5. New Test Cases
+### 4. New Test Cases
 
-#### 5.1 trace_swf_4 Test (Complete WASM Example)
+#### 4.1 trace_swf_4 Test (Complete WASM Example)
 
 **NEW: Complete working example with automated builds**
 
@@ -217,7 +201,7 @@ Added files:
 - Comprehensive documentation
 - Working live demo
 
-#### 5.2 dyna_string_vars_swf_4 Test (Variable Storage)
+#### 4.2 dyna_string_vars_swf_4 Test (Variable Storage)
 
 **NEW: Test case for dynamic string variable storage**
 
@@ -234,7 +218,7 @@ Added files:
 - Tests Copy-on-Store optimization
 - Validates variable handling improvements
 
-#### 5.3 string_add_to_var_test
+#### 4.3 string_add_to_var_test
 
 **NEW: Documentation for string concatenation tests**
 
@@ -245,31 +229,9 @@ Added files:
 - Documents string concatenation behavior
 - Explains variable storage patterns
 
-### 6. WASM Hello World Example (wasm-hello-world/)
+### 5. Build System Improvements
 
-**NEW: Minimal WASM example for learning**
-
-Added files:
-- `wasm-hello-world/.gitignore` (1 line)
-- `wasm-hello-world/README.md` (109 lines)
-- `wasm-hello-world/build.sh` (51 lines)
-- `wasm-hello-world/index.html` (189 lines)
-- `wasm-hello-world/src/hello.c` (21 lines)
-
-**Purpose:**
-- Teaching tool for WASM basics
-- Reference for minimal WASM setup
-- Template for new WASM projects
-
-**Features:**
-- Automated build script
-- HTML test page
-- Complete documentation
-- Minimal example (21 lines of C)
-
-### 7. Build System Improvements
-
-#### 7.1 .gitignore Enhancements
+#### 5.1 .gitignore Enhancements
 
 **Added entries:**
 ```
@@ -289,7 +251,7 @@ test_vars
 - Ignore build artifacts
 - Ignore temporary files
 
-#### 7.2 Automated Build Scripts
+#### 5.2 Automated Build Scripts
 
 **trace_swf_4/Makefile Features:**
 - Clean separation of source and build directories
@@ -337,17 +299,9 @@ test_vars
    - Added: MAX_STRING_ID constant generation
    - +62 lines, -38 lines
 
-### New Files (31 files)
+### New Files (20 files)
 
-**Documentation & Website (6 files):**
-- docs/.gitignore (2 lines)
-- docs/index.html (272 lines)
-- docs/favicon.svg (7 lines)
-- docs/examples/trace-swf-test/index.html (203 lines)
-- docs/examples/trace-swf-test/trace_swf.js (minified)
-- docs/examples/trace-swf-test/trace_swf.wasm (7,688 bytes)
-
-**trace_swf_4 Test (12 files):**
+**trace_swf_4 Test (13 files):**
 - tests/trace_swf_4/config.toml (4 lines)
 - tests/trace_swf_4/Makefile (62 lines)
 - tests/trace_swf_4/build_wasm.sh (71 lines)
@@ -372,13 +326,6 @@ test_vars
 
 **string_add_to_var_test (1 file):**
 - tests/string_add_to_var_test/README.md (35 lines)
-
-**WASM Hello World Example (5 files):**
-- wasm-hello-world/.gitignore (1 line)
-- wasm-hello-world/README.md (109 lines)
-- wasm-hello-world/build.sh (51 lines)
-- wasm-hello-world/index.html (189 lines)
-- wasm-hello-world/src/hello.c (21 lines)
 
 ## Technical Improvements Summary
 
@@ -453,11 +400,11 @@ The `wasm-support` branch represents a **significant maturation** of the SWFReco
 7. **Developer Experience**: Comprehensive guides, clear structure, easy to contribute
 
 **Total Changes:**
-- 35 files changed
-- 2,709 additions
+- 24 files changed (4 modified, 20 added)
+- 1,848 additions
 - 72 deletions
 - 18 commits
 
-**Key Achievement:** Successfully demonstrates SWF → C → WASM pipeline with live demo at https://swfrecomp.github.io/SWFRecompDocs/
+**Key Achievement:** Successfully demonstrates SWF → C → WASM pipeline with live demo at https://swfrecomp.github.io/SWFRecompDocs/ (demos hosted in SWFRecompDocs repository)
 
 This branch is ready for merging into master and represents the project's evolution from proof-of-concept to a viable tool for Flash preservation through static recompilation.
