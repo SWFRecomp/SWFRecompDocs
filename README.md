@@ -2,7 +2,15 @@
 
 This repository contains documentation for the [SWFRecomp project](https://github.com/SWFRecomp/SWFRecomp), which aims to recompile Adobe Flash (SWF) content to C code.
 
+**Live Demos:** [https://swfrecomp.github.io/SWFRecompDocs/](https://swfrecomp.github.io/SWFRecompDocs/) - See Flash running as WebAssembly!
+
 ## Documentation Structure
+
+### Live Demos
+
+Interactive WebAssembly demonstrations of recompiled Flash content (see [gh-pages/](gh-pages/) for source):
+
+- **[trace_swf_4 Demo](https://swfrecomp.github.io/SWFRecompDocs/examples/trace-swf-test/)** - Console output demo showing SWF → C → WASM pipeline
 
 ### Implementation Guides
 

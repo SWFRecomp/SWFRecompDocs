@@ -40,7 +40,7 @@ The wasm-support branch includes 18 commits beyond master:
 
 **Key Changes:**
 - **Project Description**: Changed from "This is a stupid idea" to a proper technical description explaining it's a static recompiler for Flash SWF files
-- **Added Live Demo Link**: https://peerinfinity.github.io/SWFRecomp/
+- **Added Live Demo Link**: https://swfrecomp.github.io/SWFRecompDocs/
 - **Added Comprehensive Sections**:
   - What is This? (explains static recompilation concept)
   - Documentation (links to all guides)
@@ -83,7 +83,7 @@ Added files:
 - `docs/examples/trace-swf-test/trace_swf.wasm` (binary, 7,688 bytes) - Compiled WebAssembly
 
 **Website Features:**
-- Live interactive demo of SWF ’ WASM conversion
+- Live interactive demo of SWF ï¿½ WASM conversion
 - Console output display showing "sup from SWF 4"
 - Run/Clear controls
 - Status indicators (Loading/Ready/Error)
@@ -316,9 +316,9 @@ test_vars
 ### Modified Files (4 files)
 
 1. **README.md**
-   - Complete rewrite: casual ’ professional
+   - Complete rewrite: casual ï¿½ professional
    - Added: Quick start, documentation, examples, diagrams
-   - Size: ~100 lines ’ 266 lines
+   - Size: ~100 lines ï¿½ 266 lines
    - +204 lines, -20 lines
 
 2. **.gitignore**
@@ -333,7 +333,7 @@ test_vars
 4. **src/action/action.cpp**
    - Added: String deduplication system
    - Changed: GetVariable/SetVariable to use action functions
-   - Changed: PUSH_STR ’ PUSH_STR_ID with ID tracking
+   - Changed: PUSH_STR ï¿½ PUSH_STR_ID with ID tracking
    - Added: MAX_STRING_ID constant generation
    - +62 lines, -38 lines
 
@@ -400,7 +400,7 @@ test_vars
 - **Better Structure**: Clear organization
 
 ### 4. WASM Support
-- **Complete Pipeline**: SWF ’ C ’ WASM
+- **Complete Pipeline**: SWF ï¿½ C ï¿½ WASM
 - **Working Examples**: trace_swf_4 demo
 - **Browser Integration**: HTML + JavaScript interface
 - **Deployment Ready**: GitHub Pages compatible
@@ -458,6 +458,6 @@ The `wasm-support` branch represents a **significant maturation** of the SWFReco
 - 72 deletions
 - 18 commits
 
-**Key Achievement:** Successfully demonstrates SWF ’ C ’ WASM pipeline with live demo at https://peerinfinity.github.io/SWFRecomp/
+**Key Achievement:** Successfully demonstrates SWF â†’ C â†’ WASM pipeline with live demo at https://swfrecomp.github.io/SWFRecompDocs/
 
 This branch is ready for merging into master and represents the project's evolution from proof-of-concept to a viable tool for Flash preservation through static recompilation.
