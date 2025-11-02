@@ -33,6 +33,11 @@ Current project status and progress tracking (see [status/README.md](status/READ
 
 Branch merge documentation for coordinating updates across repositories (see [merge/README.md](merge/README.md) for details):
 
+**Branch Comparison Documents:**
+- **[swfrecomp-branch-differences.md](merge/swfrecomp-branch-differences.md)** - Complete diff analysis: SWFRecomp wasm-support vs master
+- **[swfmodernruntime-branch-differences.md](merge/swfmodernruntime-branch-differences.md)** - Complete diff analysis: SWFModernRuntime wasm-support vs master
+
+**Merge Analyses:**
 - **[swfrecomp-wasm-support-merge-analysis.md](merge/swfrecomp-wasm-support-merge-analysis.md)** - SWFRecomp wasm-support → master merge analysis
 - **[swfmodernruntime-wasm-support-merge-analysis.md](merge/swfmodernruntime-wasm-support-merge-analysis.md)** - SWFModernRuntime wasm-support → master merge analysis
 

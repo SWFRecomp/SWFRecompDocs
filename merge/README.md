@@ -14,6 +14,11 @@ Merge analysis documents provide:
 
 ## Files
 
+### Branch Comparison Documents
+
+- **[swfrecomp-branch-differences.md](swfrecomp-branch-differences.md)** - Complete diff analysis: SWFRecomp wasm-support vs master
+- **[swfmodernruntime-branch-differences.md](swfmodernruntime-branch-differences.md)** - Complete diff analysis: SWFModernRuntime wasm-support vs master
+
 ### Active Merge Analyses
 
 - **[swfrecomp-wasm-support-merge-analysis.md](swfrecomp-wasm-support-merge-analysis.md)** - Merge analysis for SWFRecomp wasm-support → master
