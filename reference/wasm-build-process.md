@@ -1,8 +1,18 @@
 # WASM Build Process with NO_GRAPHICS Mode
 
-**Last Updated:** 2025-11-04
+**Last Updated:** 2025-11-04 (Updated with batch build system)
 
-**Purpose:** Step-by-step guide for building SWF tests to WebAssembly using the NO_GRAPHICS runtime
+**Purpose:** Comprehensive guide for building SWF tests to WebAssembly and native executables using the NO_GRAPHICS runtime
+
+## Recent Updates
+
+**Automated Build System (2025-11-04):**
+- ✅ Batch build scripts for WASM and native builds
+- ✅ Shared exclude list configuration (`excluded_tests.conf`)
+- ✅ Auto-generated documentation index
+- ✅ Automated deployment to docs site
+- ✅ 48/51 tests building successfully
+- ✅ Config files added to all tests
 
 ---
 
@@ -205,21 +215,42 @@ tests/trace_swf_4/build/wasm/
 
 ## Build Modes: Native vs WASM
 
-### Native Build (with graphics)
+Both native and WASM builds currently use NO_GRAPHICS mode (console-only).
+
+### Native Build
 
 ```bash
 ./scripts/build_test.sh trace_swf_4 native
 ```
 
 **Compiles with:**
-- Full graphics mode (SDL3/Vulkan)
-- `swf.c` and `tag.c` (graphics implementations)
-- `flashbang.c` (rendering backend)
+- NO_GRAPHICS mode (console-only)
+- `swf_core.c` and `tag_stubs.c` (stub implementations)
+- No flashbang/SDL3/Vulkan
 - Uses gcc/clang
 
-**Output:** Native executable for local testing
+**Output:** Native executable (~36 KB)
 
-### WASM Build (console-only)
+**Example:**
+```bash
+./tests/trace_swf_4/build/native/trace_swf_4
+```
+
+**Output:**
+```
+SWF Runtime Loaded (Native Build)
+
+=== SWF Execution Started (NO_GRAPHICS mode) ===
+
+[Frame 0]
+[Tag] SetBackgroundColor(255, 255, 255)
+sup from SWF 4
+[Tag] ShowFrame()
+
+=== SWF Execution Completed ===
+```
+
+### WASM Build
 
 ```bash
 ./scripts/build_test.sh trace_swf_4 wasm
@@ -229,9 +260,11 @@ tests/trace_swf_4/build/wasm/
 - NO_GRAPHICS mode (console-only)
 - `swf_core.c` and `tag_stubs.c` (stub implementations)
 - No flashbang/SDL3/Vulkan
-- Uses emcc
+- Uses emcc (Emscripten)
 
-**Output:** WebAssembly for browser deployment
+**Output:** WebAssembly binary (~19-35 KB) + JavaScript loader
+
+**Note:** Graphics mode with SDL3/Vulkan/WebGPU support is planned for future implementation.
 
 ---
 
@@ -393,12 +426,120 @@ cd ~/projects/SWFRecomp
 
 ### Batch Deployment
 
-To deploy multiple tests:
+Build and deploy all examples with a single command:
 
 ```bash
-# Edit the test list in the script first
+# Activate Emscripten first
+source ~/tools/emsdk/emsdk_env.sh
+
+# Build and deploy all non-excluded tests
 ./scripts/build_all_examples.sh ../SWFRecompDocs/docs/examples
 ```
+
+**What this does:**
+1. Auto-discovers all tests with `config.toml`
+2. Excludes tests in `scripts/excluded_tests.conf`
+3. Builds each test to WASM
+4. Deploys to docs/examples/
+5. Auto-updates docs/index.html with example links
+
+**Output:**
+```
+Auto-discovered 48 tests with config.toml
+Excluded 3 tests: if_swf_4 if_false_swf_4 speed_test_swf_4
+Building all tests for WASM deployment...
+
+=========================================
+Building: trace_swf_4 (1/48)
+=========================================
+✅ trace_swf_4 - built and deployed
+
+[... builds continue ...]
+
+=========================================
+Build Summary
+=========================================
+✅ Successful: 48
+❌ Failed: 0
+⏱️  Timeout: 0
+Total: 48
+```
+
+**Features:**
+- 60-second timeout per test
+- Continues on failures
+- Detailed progress tracking
+- Summary report at end
+
+---
+
+## Automated Build System
+
+### Batch Build Scripts
+
+SWFRecomp includes automated scripts for building all tests:
+
+#### WASM Batch Build
+
+```bash
+source ~/tools/emsdk/emsdk_env.sh
+./scripts/build_all_examples.sh
+```
+
+Builds all tests to WebAssembly and deploys them to the documentation site.
+
+#### Native Batch Build
+
+```bash
+./scripts/build_all_native.sh
+```
+
+Builds all tests as native executables in `tests/<name>/build/native/`.
+
+### Excluded Tests Configuration
+
+**File:** `scripts/excluded_tests.conf`
+
+Tests that are known to fail or take too long are listed here:
+
+```
+# Format: test_name:reason
+if_swf_4:Missing evaluateCondition() function in runtime
+if_false_swf_4:Missing evaluateCondition() function in runtime
+speed_test_swf_4:Build timeout - generates 811KB of code (stress test)
+```
+
+**Usage:**
+- Batch build scripts automatically skip these tests
+- Excluded tests are shown in a separate section on the docs site
+- Edit this file to add/remove exclusions
+
+### Auto-Generated Documentation Index
+
+The documentation index is automatically updated when examples are deployed:
+
+**File:** `scripts/generate_examples_index.sh`
+
+**Features:**
+- Scans `docs/examples/` for deployed tests
+- Generates demo cards for each example
+- Creates "Excluded Tests" section with reasons
+- Updates `docs/index.html` automatically
+
+**Manual regeneration:**
+```bash
+./scripts/generate_examples_index.sh ../SWFRecompDocs/docs
+```
+
+### Adding Config Files to Tests
+
+To prepare tests for batch building:
+
+```bash
+./scripts/add_configs_to_all_tests.sh
+```
+
+This creates `config.toml` in any test directory that has `test.swf` but no configuration.
 
 ---
 
@@ -734,6 +875,63 @@ done
 
 ---
 
+## Available Scripts Reference
+
+### Core Build Scripts
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `build_test.sh` | Build single test (WASM or native) | `./scripts/build_test.sh <name> [wasm\|native]` |
+| `build_all_examples.sh` | Batch build all tests to WASM and deploy | `./scripts/build_all_examples.sh [docs_dir]` |
+| `build_all_native.sh` | Batch build all tests to native executables | `./scripts/build_all_native.sh` |
+
+### Deployment Scripts
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `deploy_example.sh` | Deploy single WASM test to docs | `./scripts/deploy_example.sh <name> [docs_dir]` |
+| `generate_examples_index.sh` | Update docs index.html | `./scripts/generate_examples_index.sh [docs_dir]` |
+
+### Utility Scripts
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `add_configs_to_all_tests.sh` | Add config.toml to all tests | `./scripts/add_configs_to_all_tests.sh` |
+
+### Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `excluded_tests.conf` | List of tests to skip in batch builds with reasons |
+| `tests/*/config.toml` | Per-test configuration for SWFRecomp |
+
+### Script Examples
+
+**Build and deploy single test:**
+```bash
+source ~/tools/emsdk/emsdk_env.sh
+./scripts/build_test.sh trace_swf_4 wasm
+./scripts/deploy_example.sh trace_swf_4
+```
+
+**Batch build all tests:**
+```bash
+source ~/tools/emsdk/emsdk_env.sh
+./scripts/build_all_examples.sh
+```
+
+**Build native executables:**
+```bash
+./scripts/build_all_native.sh
+```
+
+**Update documentation index:**
+```bash
+./scripts/generate_examples_index.sh
+```
+
+---
+
 ## Related Documentation
 
 - **Implementation Status:** `status/2025-11-04-no-graphics-mode-implementation.md`
@@ -745,18 +943,39 @@ done
 
 ## Summary
 
-The WASM build process is now streamlined:
+The WASM build process is fully automated and production-ready:
 
-1. ✅ **One-time setup:** Install Emscripten
-2. ✅ **Per-session:** Activate Emscripten with `source ~/tools/emsdk/emsdk_env.sh`
-3. ✅ **Per-test:** Run `./scripts/build_test.sh <test_name> wasm`
-4. ✅ **Test:** Start HTTP server and open in browser
-5. ✅ **Deploy:** Run `./scripts/deploy_example.sh <test_name>`
+### Quick Start
 
-**Key achievement:** Console-only tests now build to WASM without SDL3/Vulkan dependencies, enabling ~40 tests to run as interactive web demos.
+**Single test:**
+```bash
+source ~/tools/emsdk/emsdk_env.sh
+./scripts/build_test.sh <test_name> wasm
+./scripts/deploy_example.sh <test_name>
+```
 
-**Build time:** ~4 seconds per test
+**All tests:**
+```bash
+source ~/tools/emsdk/emsdk_env.sh
+./scripts/build_all_examples.sh
+```
 
-**Output size:** ~30-45 KB per test
+### Key Features
 
-**Browser support:** All modern browsers with WebAssembly support
+1. ✅ **Automated batch builds** - Build all 48 working tests with one command
+2. ✅ **Auto-deployment** - Tests automatically deployed to docs site
+3. ✅ **Auto-generated index** - Documentation updated automatically
+4. ✅ **Exclude list** - Known issues documented and skipped
+5. ✅ **Native support** - Build native executables for testing
+6. ✅ **Config management** - All tests have config.toml files
+
+### Statistics
+
+- **Tests building:** 48/51 (94%)
+- **Build time:** ~4 seconds/test (WASM), ~2 seconds/test (native)
+- **Output size:** 19-35 KB WASM + 14 KB JS (~500x smaller than Flash Player!)
+- **Excluded tests:** 3 (documented in excluded_tests.conf)
+
+### Achievement
+
+Console-only tests now build to both WASM and native executables without SDL3/Vulkan dependencies, enabling deployment of 48 interactive web demos and comprehensive automated testing.

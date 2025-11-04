@@ -459,8 +459,8 @@ int main() {
 **Command:**
 
 ```bash
-cd /home/robert/projects/SWFRecomp
-source /home/robert/tools/emsdk/emsdk_env.sh
+cd SWFRecomp
+source tools/emsdk/emsdk_env.sh
 ./scripts/build_test.sh trace_swf_4 wasm
 ```
 
@@ -475,10 +475,10 @@ Building WASM with SWFModernRuntime...
 [warnings about null pointer traps - harmless]
 
 ✅ WASM build complete!
-Output: /home/robert/projects/SWFRecomp/tests/trace_swf_4/build/wasm/trace_swf_4.wasm
+Output: SWFRecomp/tests/trace_swf_4/build/wasm/trace_swf_4.wasm
 
 To test:
-  cd /home/robert/projects/SWFRecomp/tests/trace_swf_4/build/wasm
+  cd SWFRecomp/tests/trace_swf_4/build/wasm
   python3 -m http.server 8000
   Open http://localhost:8000/index.html
 ```
@@ -486,9 +486,9 @@ To test:
 **Generated files:**
 
 ```
--rw-rw-r-- 1 robert robert  14K Nov  4 10:45 trace_swf_4.js
--rwxrwxr-x 1 robert robert  19K Nov  4 10:45 trace_swf_4.wasm
--rw-rw-r-- 1 robert robert 5.9K Nov  4 10:45 index.html
+-rw-rw-r-- 1   14K Nov  4 10:45 trace_swf_4.js
+-rwxrwxr-x 1   19K Nov  4 10:45 trace_swf_4.wasm
+-rw-rw-r-- 1  5.9K Nov  4 10:45 index.html
 ```
 
 ---
