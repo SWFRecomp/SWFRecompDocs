@@ -327,11 +327,13 @@ bash all_tests.sh
 - Requires object model implementation
 - Hash table or property storage
 - Type system integration
+- **IMPORTANT**: See "Object Allocation Model" section below
 
 **Advanced**: InitArray, InitObject, Enumerate
 - Complex data structure creation
-- Memory management
+- Memory management with reference counting
 - Iterator patterns
+- **IMPORTANT**: See "Object Allocation Model" section below
 
 ## Currently Implemented Opcodes (24 total)
 
@@ -360,6 +362,202 @@ bash all_tests.sh
 | 0x96 | 0x96 | PUSH | Stack |
 | 0x99 | 0x99 | JUMP | Control |
 | 0x9D | 0x9D | IF | Control |
+
+## Object Allocation Model
+
+### Overview
+
+**IMPORTANT**: For opcodes that create or manipulate objects/arrays (InitObject, InitArray, GetMember, SetMember, etc.), the system uses **compile-time inlined reference counting** instead of runtime garbage collection.
+
+### Design Philosophy
+
+**Reference Counting at Recompiler Level**:
+- SWFRecomp emits inline refcount increment/decrement operations
+- Deterministic memory management (no GC pauses)
+- Compiler can optimize refcount operations
+- Runtime only provides allocation/deallocation primitives
+
+**NOT using Runtime GC**:
+- No garbage collector in SWFModernRuntime
+- No stop-the-world pauses
+- Predictable performance
+- Lower memory overhead
+
+### Implementation Strategy
+
+When implementing object/array opcodes, follow this pattern:
+
+#### 1. Runtime Provides Primitives (SWFModernRuntime)
+
+```c
+// Object allocation/deallocation primitives
+typedef struct {
+    u32 refcount;
+    // ... object properties ...
+} ASObject;
+
+ASObject* allocObject();
+void retainObject(ASObject* obj);  // Increment refcount
+void releaseObject(ASObject* obj); // Decrement refcount, free if zero
+```
+
+#### 2. Recompiler Emits Inline Refcount Operations (SWFRecomp)
+
+When translating object operations, emit refcount management:
+
+```cpp
+// Example: InitObject translation in SWFRecomp/src/action/action.cpp
+case SWF_ACTION_INIT_OBJECT:
+{
+    out_script << "\t" << "// InitObject" << endl
+               << "\t" << "ASObject* obj = allocObject();" << endl
+               << "\t" << "obj->refcount = 1;  // Initial reference" << endl
+               << "\t" << "PUSH(ACTION_STACK_VALUE_OBJECT, VAL(u64, obj));" << endl;
+    break;
+}
+
+// Example: Setting a property (increments refcount)
+case SWF_ACTION_SET_MEMBER:
+{
+    out_script << "\t" << "// SetMember - inline refcount management" << endl
+               << "\t" << "actionSetMember(stack, sp);" << endl
+               << "\t" << "// retainObject() called within actionSetMember" << endl;
+    break;
+}
+```
+
+#### 3. Reference Counting Rules
+
+**When to Increment (`retainObject`)**:
+- Storing object reference in a variable
+- Adding object to an array/container
+- Assigning object to a property
+- Returning object from a function
+
+**When to Decrement (`releaseObject`)**:
+- Popping object from stack (if not stored elsewhere)
+- Overwriting a variable that held an object
+- Removing object from array
+- Function/scope cleanup
+
+**Compiler Optimizations**:
+- Elide refcount operations when object lifetime is obvious
+- Combine increment/decrement pairs that cancel out
+- Use move semantics where possible
+
+#### 4. Stack Interaction
+
+Objects on the stack maintain refcounts:
+
+```c
+// Pushing object to stack
+PUSH(ACTION_STACK_VALUE_OBJECT, VAL(u64, obj));
+// obj->refcount already = 1 from allocation
+
+// Popping object from stack
+ASObject* obj = (ASObject*) VAL(u64, &STACK_TOP_VALUE);
+POP();
+// Don't release if transferring to variable/property
+// Do release if discarding
+```
+
+#### 5. Example: InitObject Implementation
+
+**SWFRecomp Translation** (action.cpp):
+```cpp
+case SWF_ACTION_INIT_OBJECT:
+{
+    // Number of properties is on stack
+    out_script << "\t" << "u32 num_props;" << endl
+               << "\t" << "popU32(stack, sp, &num_props);" << endl
+               << "\t" << "ASObject* obj = allocObject(num_props);" << endl
+               << "\t" << "for (u32 i = 0; i < num_props; i++) {" << endl
+               << "\t" << "    initObjectProperty(stack, sp, obj);" << endl
+               << "\t" << "}" << endl
+               << "\t" << "PUSH(ACTION_STACK_VALUE_OBJECT, VAL(u64, obj));" << endl;
+    break;
+}
+```
+
+**SWFModernRuntime Implementation** (action.c):
+```c
+ASObject* allocObject(u32 num_properties)
+{
+    ASObject* obj = malloc(sizeof(ASObject) + num_properties * sizeof(ASProperty));
+    obj->refcount = 1;  // Initial reference
+    obj->num_properties = num_properties;
+    return obj;
+}
+
+void initObjectProperty(char* stack, u32* sp, ASObject* obj)
+{
+    // Pop value
+    ActionVar val;
+    popVar(stack, sp, &val);
+
+    // Pop property name
+    const char* name = (const char*) VAL(u64, &STACK_TOP_VALUE);
+    POP();
+
+    // Store property (with refcount management if val is object)
+    setProperty(obj, name, &val);
+    if (val.type == ACTION_STACK_VALUE_OBJECT) {
+        retainObject((ASObject*) val.value.u64);  // Retain when storing
+    }
+}
+
+void releaseObject(ASObject* obj)
+{
+    if (obj == NULL) return;
+
+    obj->refcount--;
+    if (obj->refcount == 0) {
+        // Release all property values
+        for (u32 i = 0; i < obj->num_properties; i++) {
+            if (obj->properties[i].value.type == ACTION_STACK_VALUE_OBJECT) {
+                releaseObject((ASObject*) obj->properties[i].value.value.u64);
+            }
+        }
+        free(obj);
+    }
+}
+```
+
+### Design Considerations
+
+**Why Inline at Compile Time?**
+- Compiler can see object lifetimes across multiple opcodes
+- Can optimize away temporary references
+- No runtime overhead for reference tracking
+- Deterministic cleanup (no GC heuristics)
+
+**Trade-offs**:
+- ✅ Deterministic performance (no GC pauses)
+- ✅ Simpler runtime (no GC implementation)
+- ✅ Optimization opportunities (compiler sees full picture)
+- ⚠️ Slightly larger generated code (refcount ops inlined)
+- ⚠️ Must handle circular references (use weak references or explicit breaking)
+
+### Circular Reference Handling
+
+For circular references (rare in Flash AS2), use:
+- **Weak references** for parent pointers
+- **Explicit cleanup** in frame/scope exit
+- **Cycle detection** for complex structures (optional, usually not needed)
+
+### Testing Object Refcounts
+
+Add assertions in debug builds:
+
+```c
+#ifdef DEBUG
+void assertRefcount(ASObject* obj, u32 expected) {
+    assert(obj->refcount == expected);
+}
+#endif
+```
+
+**IMPORTANT**: Before implementing any object/array opcodes, coordinate with the team to establish the base object model (ASObject structure, property storage, refcount primitives). These are shared infrastructure that multiple opcodes will use.
 
 ## Common Implementation Patterns
 
